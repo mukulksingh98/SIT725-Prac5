@@ -1,24 +1,3 @@
-const getProjects = () => {
-    $.get('/api/projects',(response) => {
-        if(response.statusCode==200){
-            addCards(response.data);
-        }
-    })
-}
-
-//ajax function...
-const addProjectToApp = (project) => {
-    $.ajax({
-        url: '/api/projects',
-        data: project,
-        type: 'POST',
-        success: (result) => {
-            alert(result.message);
-            location.reload(); // it automatically reloads the page 
-        }
-    })
-}
-
 const submitForm = () => {
     let formData = {};
     formData.title = $('#title').val();
@@ -68,7 +47,26 @@ $(document).ready(function(){
     $('#formSubmit').click(()=>{
         submitForm();
     })
-    //addCards(cardList);
     getProjects();
     $('.modal').modal();
   });
+
+  const getProjects = () => {
+    $.get('/api/projects',(response) => {
+        if(response.statusCode==200){
+            addCards(response.data);
+        }
+    })
+}
+
+const addProjectToApp = (project) => {
+    $.ajax({
+        url: '/api/projects',
+        data: project,
+        type: 'POST',
+        success: (result) => {
+            alert(result.message);
+            location.reload(); 
+        }
+    })
+}
